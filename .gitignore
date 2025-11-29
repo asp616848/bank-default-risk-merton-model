@@ -1,0 +1,13 @@
+# ignore Python cache
+__pycache__/
+*.pyc
+
+# ignore Jupyter checkpoints
+.ipynb_checkpoints/
+
+# ignore csv results if they are huge
+*.csv
+
+# keep price data?
+# If price data is large, ignore folder:
+# nse_prices/
