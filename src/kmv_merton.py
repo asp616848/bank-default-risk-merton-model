@@ -21,7 +21,10 @@ def get_fy_end_price(df, fy_end_date="2025-03-31"):
     if isinstance(fy_end_date, str):
         fy_end_date = pd.to_datetime(fy_end_date)
     df = df.copy()
-    df['Date'] = pd.to_datetime(df['Date'])
+    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+    # Remove timezone info to avoid comparison issues
+    if df['Date'].dt.tz is not None:
+        df['Date'] = df['Date'].dt.tz_localize(None)
     df = df.sort_values('Date')
     df = df[df['Date'] <= fy_end_date]
     if df.shape[0] == 0:
@@ -37,7 +40,10 @@ def compute_annualized_volatility(df, start_date=None, end_date=None, date_col='
     Returns annualized volatility (float).
     """
     df = df.copy()
-    df[date_col] = pd.to_datetime(df[date_col])
+    df[date_col] = pd.to_datetime(df[date_col], errors='coerce')
+    # Remove timezone info to avoid comparison issues
+    if df[date_col].dt.tz is not None:
+        df[date_col] = df[date_col].dt.tz_localize(None)
     if start_date is not None:
         df = df[df[date_col] >= pd.to_datetime(start_date)]
     if end_date is not None:
@@ -287,7 +293,7 @@ def compute_kmv_for_all_tickers(tickers, prices_folder, fundamentals_df, **kwarg
 if __name__ == "__main__":
     # Example: run for several tickers using a fundamentals CSV and a prices folder
     PRICES_FOLDER = "data/prices"   # change to your folder, e.g., "data/prices" or "nse_prices"
-    FUND_FILE = "data/fundamentals.csv" # path to your fundamentals CSV with ticker, shares_outstanding, short_term_debt, long_term_debt
+    FUND_FILE = "fundamentals.csv" # path to your fundamentals CSV with ticker, shares_outstanding, short_term_debt, long_term_debt
     
     # read fundamentals
     fund = pd.read_csv(FUND_FILE)
