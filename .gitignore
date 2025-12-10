@@ -6,7 +6,7 @@ __pycache__/
 .ipynb_checkpoints/
 
 # ignore csv results if they are huge
-*.csv
+#*.csv
 
 # keep price data?
 # If price data is large, ignore folder:
