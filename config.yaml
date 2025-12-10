@@ -1,0 +1,30 @@
+tickers:
+  - SBIBANK
+  - BANKBARODA
+  - CANBK
+  - HDFCBANK
+  - ICICIBANK
+  - AXISBANK
+  - KOTAKBANK
+  - INDUSINDBK
+  - BAJFINANCE
+  - PNB
+
+# date range for volatility estimation (financial-window)
+start_date: "2020-04-01"
+end_date:   "2025-03-31"
+fy_end:     "2025-03-31"
+
+# folders
+price_data_folder: "../data/prices"
+reports_folder: "../data/reports"   # optional, only if you store PDFs
+
+# fundamentals csv (must be created)
+fundamentals_file: "../fundamentals.csv"
+
+# outputs
+output_folder: "../outputs"
+
+# macro inputs
+risk_free_rate: 0.055   # decimal, e.g. 7.5% -> 0.075
+T: 1.0
